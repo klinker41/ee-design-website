@@ -21,17 +21,16 @@ function c2f(c) {
 }
 
 jQuery(document).ready(function($) {
-
     (function updateTemp() {
-    	$.get("http://173.17.168.19:8083/lab1/temperature/latest", function(json) {
-    		var temp = json.temp;
-    		if (temp == null) {
-        		$('.current_temperature').updateWithText("Data Unavailable.",100);
+		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest", {}, function(json, status) {
+        	current_temperature = json.temp;
+    		if (current_temperature == null) {
+        		$('.current_temperature').updateWithText("Data Unavailable.",300);
     		} else {
-        		$('.current_temperature').updateWithText(temp,100);
+        		$('.current_temperature').updateWithText(current_temperature + ' °' + temp_reading,300);
     		}
-		}, "json").fail(function() {
-			$('.current_temperature').updateWithText("Error Reaching Endpoint.",100);
+		}).fail(function() {
+			$('.current_temperature').updateWithText("Error Reaching Endpoint.",300);
 		});
 
         setTimeout(function() {
@@ -40,12 +39,12 @@ jQuery(document).ready(function($) {
     })();
 
 	(function updateTempList() {
-		$.get('http://173.17.168.19:8083/lab1/temperature', function(json) {
-			var tempList = {};
+		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
+        	var tempList = {};
 			for (var i in json.temps) {
 				var temp = json.temps[i];
 				tempList[i] = {
-					'temp':temp;
+					'temp':temp
 				};
 			}
 
@@ -56,12 +55,12 @@ jQuery(document).ready(function($) {
 			// for (var i int tempList) {
 			// 		var temp = tempList[i].temp
 			// }
-		}, "json").fail(function() {
-			$('.current_temperature').updateWithText("Error Reaching Endpoint.",100);
+		}).fail(function() {
+			$('.current_temperature').updateWithText("Error Reaching Endpoint.",300);
 		});
 
-		setTimeout(function() {
-			updateTempList();
-		}, 1000);
-	})();
+        setTimeout(function() {
+            updateTempList();
+        }, 1000);
+    })();
 });
