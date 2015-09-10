@@ -27,6 +27,10 @@
               width: 100%;
               margin-top: 40px;
             }
+
+            #celcius_check_holder {
+              margin-top: 90px;
+            }
         </style>
     </head>
     <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
@@ -49,11 +53,17 @@
             <main class="mdl-layout__content">
                 <br/>
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                  <div class="mdl-card mdl-cell mdl-cell--9-col">
                     <div class="mdl-card__supporting-text">
                       <h4>Current Temperature</h4>
-                      <div id="current_temperature">Loading...</div>
+                      <div id="current_temperature"></div>
                     </div>
+                  </div>
+                  <div class="mdl-card mdl-cell mdl-cell--3-col">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="celcius_checkbox" id="celcius_check_holder">
+                        <input type="checkbox" id="celcius_checkbox" class="mdl-checkbox__input" checked />
+                        <span class="mdl-checkbox__label">Celcius</span>
+                      </label>
                   </div>
                 </section>
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">

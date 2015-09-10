@@ -6,98 +6,99 @@ jQuery.fn.updateWithText = function(text, speed) {
 		$(this).fadeOut(speed/2, function() {
 			$(this).html(text);
 			$(this).fadeIn(speed/2, function() {
-				//done
+				// done
 			});
 		});
 	}
 }
 
 function roundVal(temp) {
-	return Math.round(Number(temp));
+	return Number(temp).toFixed(2);
 }
 
 function c2f(c) {
 	return Number(c) * 1.8 + 32;
 }
 
-jQuery(document).ready(function($) {
-	var chart = null;
+function generateChart() {
+	return chart = c3.generate({
+		    bindto: '#temperature_chart',
+		    data: { columns: [ ], type: 'spline' },
+		    tooltip: { show: false },
+			axis: {
+		      y: {
+		        label: { text: 'Temperature (°' + temp_type + ')', position: 'outer-middle' }
+		      },
+		      x: {
+		        label: { text: 'Time Ago (Seconds)', position: 'outer-middle' }, 
+		        tick: { values: ['0', '50', '100', '150', '200', '250', '300'] }
+		      }
+		    }, 
+		});
+}
 
+jQuery(document).ready(function($) {
+	// generate the chart with a blank curve first. 
+	// will update when the GET call is done.
+	var chart = generateChart();
+
+	// function to update the current temperature.
+	// this reschedules itself every one second.
     (function updateTemp() {
-		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest", {}, function(json, status) {
-        	current_temperature = json.temp;
+		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest?type=" + temp_type, {}, function(json, status) {
+			// set the data according to the json returned
+        	current_temperature = roundVal(json.temp);
+
     		if (current_temperature == null) {
         		$('#current_temperature').updateWithText("Data Unavailable.",300);
     		} else {
-        		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_reading,300);
+        		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
 		}).fail(function() {
+			// Something went wrong, chances are the server is down
 			$('#current_temperature').updateWithText("Error Reaching Endpoint.",300);
 		});
 
+		// reschedule this function
         setTimeout(function() {
             updateTemp();
         }, 1000);
     })();
 
-	chart = c3.generate({
-		    bindto: '#temperature_chart',
-		    data: {
-		      columns: [
-		        ['Temperature Reading', 300, 100, 250, 150, 300, 150, 500]
-		      ],
-		      type: 'spline'
-		    },
-		    zoom: {
-    		  enabled: true
-			},
-			axis: {
-		      y: {
-		        label: {
-		          text: 'Temperature (°' + temp_reading + ')',
-		          position: 'outer-middle'
-		        }
-		      },
-		      x: {
-		        label: {
-		          text: 'Time Ago (Seconds)',
-		          position: 'outer-middle'
-		        }
-		      }
-		    }
-		});
-
+	// function to update the past temperature graph
+	// this reschedules itself every one second.
 	(function updateTempList() {
-		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
-        	var tempList = {};
-			for (var i in json.temps) {
+		$.getJSON("http://173.17.168.19:8083/lab1/temperature?type=" + temp_type, {}, function(json, status) {
+			// the name of the graph is the 0th index of the data array.
+        	var tempList = ['Temperature Reading'];
+
+        	// the temperatures get loaded into the array in reverse
+			//for (var i = json.temps.length - 1; i >= 0; i--) {
+			for (var i = 0; i < json.temps.length; i++) {
 				var temp = json.temps[i];
-				tempList[i] = {
-					'temp':temp
-				};
+				tempList.push(parseInt(temp));
 			}
 
+			// display the temps on the graph
 			chart.load({
 			  columns: [
-			    ['Temperature Reading', 450, 300, 400, null, 250, 150, 100, 275, 325, 500]
+			    tempList
 			  ]
 			});
-
-			// TODO
-			// we will have to update the table here, however we make it.
-			//
-			// we can parse through the temp data with:
-			// for (var i int tempList) {
-			// 		var temp = tempList[i].temp
-			// }
-
-
-		}).fail(function() {
-
+			chart.axis.labels({y: 'Temperature (°' + temp_type + ')'});
 		});
 
-        /*setTimeout(function() {
+		// reschedules itself after 1 second
+        setTimeout(function() {
             updateTempList();
-        }, 1000);*/
+        }, 1000);
     })();
+
+    $('#celcius_checkbox').change(function() {
+    	if (this.checked) {
+    		temp_type = 'C';
+    	} else {
+    		temp_type = 'F';
+    	}
+    });
 });
