@@ -24,7 +24,7 @@ function generateChart() {
 	return chart = c3.generate({
 		    bindto: '#temperature_chart',
 		    data: { columns: [ ], type: 'spline' },
-		    tooltip: { show: true },
+		    tooltip: { show: false },
 			axis: {
 		      y: { 
 		      	label: { text: 'Temperature (°C)', position: 'outer-middle' },

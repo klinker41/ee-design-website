@@ -1165,7 +1165,6 @@
             axis_x_tick_outer: true,
             axis_x_tick_multiline: true,
             axis_x_tick_width: null,
-            axis_x_inverted: false,
             axis_x_max: undefined,
             axis_x_min: undefined,
             axis_x_padding: {},
@@ -1586,11 +1585,10 @@
         return {left: paddingLeft, right: paddingRight};
     };
     c3_chart_internal_fn.getXDomain = function (targets) {
-        var $$ = this, config = $$.config,
+        var $$ = this,
             xDomain = [$$.getXDomainMin(targets), $$.getXDomainMax(targets)],
             firstX = xDomain[0], lastX = xDomain[1],
             padding = $$.getXDomainPadding(xDomain),
-            isInverted = config.axis_x_inverted,
             min = 0, max = 0;
         // show center of x domain if min and max are the same
         if ((firstX - lastX) === 0 && !$$.isCategorized()) {
@@ -1608,8 +1606,7 @@
         if (lastX || lastX === 0) {
             max = $$.isTimeSeries() ? new Date(lastX.getTime() + padding.right) : lastX + padding.right;
         }
-        var domain = [min, max];
-        return domain.reverse();
+        return [min, max].reverse();
     };
     c3_chart_internal_fn.updateXDomain = function (targets, withUpdateXDomain, withUpdateOrgXDomain, withTrim, domain) {
         var $$ = this, config = $$.config;

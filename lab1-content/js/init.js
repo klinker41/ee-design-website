@@ -8,6 +8,3 @@ var limit_high = '70';                  // in degrees C
 
 // this will hold the current temp as we get it from the database.
 var current_temperature = 'Data Unavailable';
-
-// context for the chart
-var ctx = null;
