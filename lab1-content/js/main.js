@@ -26,9 +26,7 @@ function generateChart() {
 		    data: { columns: [ ], type: 'spline' },
 		    tooltip: { show: false },
 			axis: {
-		      y: {
-		        label: { text: 'Temperature (°' + temp_type + ')', position: 'outer-middle' }
-		      },
+		      y: { label: { text: 'Temperature (°C)', position: 'outer-middle' } },
 		      x: {
 		        label: { text: 'Time Ago (Seconds)', position: 'outer-middle' }, 
 		        tick: { values: ['0', '50', '100', '150', '200', '250', '300'] }
@@ -68,7 +66,7 @@ jQuery(document).ready(function($) {
 	// function to update the past temperature graph
 	// this reschedules itself every one second.
 	(function updateTempList() {
-		$.getJSON("http://173.17.168.19:8083/lab1/temperature?type=" + temp_type, {}, function(json, status) {
+		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
 			// the name of the graph is the 0th index of the data array.
         	var tempList = ['Temperature Reading'];
 
@@ -80,12 +78,7 @@ jQuery(document).ready(function($) {
 			}
 
 			// display the temps on the graph
-			chart.load({
-			  columns: [
-			    tempList
-			  ]
-			});
-			chart.axis.labels({y: 'Temperature (°' + temp_type + ')'});
+			chart.load({ columns: [ tempList ] });
 		});
 
 		// reschedules itself after 1 second
