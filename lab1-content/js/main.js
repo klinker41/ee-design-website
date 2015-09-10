@@ -21,6 +21,8 @@ function c2f(c) {
 }
 
 jQuery(document).ready(function($) {
+	var chart = null;
+
     (function updateTemp() {
 		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest", {}, function(json, status) {
         	current_temperature = json.temp;
@@ -38,6 +40,33 @@ jQuery(document).ready(function($) {
         }, 1000);
     })();
 
+	chart = c3.generate({
+		    bindto: '#temperature_chart',
+		    data: {
+		      columns: [
+		        ['Temperature Reading', 300, 100, 250, 150, 300, 150, 500]
+		      ],
+		      type: 'spline'
+		    },
+		    zoom: {
+    		  enabled: true
+			},
+			axis: {
+		      y: {
+		        label: {
+		          text: 'Temperature (°' + temp_reading + ')',
+		          position: 'outer-middle'
+		        }
+		      },
+		      x: {
+		        label: {
+		          text: 'Time Ago (Seconds)',
+		          position: 'outer-middle'
+		        }
+		      }
+		    }
+		});
+
 	(function updateTempList() {
 		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
         	var tempList = {};
@@ -48,6 +77,12 @@ jQuery(document).ready(function($) {
 				};
 			}
 
+			chart.load({
+			  columns: [
+			    ['Temperature Reading', 450, 300, 400, null, 250, 150, 100, 275, 325, 500]
+			  ]
+			});
+
 			// TODO
 			// we will have to update the table here, however we make it.
 			//
@@ -55,25 +90,14 @@ jQuery(document).ready(function($) {
 			// for (var i int tempList) {
 			// 		var temp = tempList[i].temp
 			// }
-			var chart = c3.generate({
-			    bindto: '#temperature_chart',
-			    data: {
-			      columns: [
-			        ['data1', 30, 200, 100, 400, 150, 250],
-			        ['data2', 50, 20, 10, 40, 15, 25]
-			      ]
-			    },
-			    zoom: {
-        		  enabled: true
-    			}
-			});
+
 
 		}).fail(function() {
 
 		});
 
-        setTimeout(function() {
+        /*setTimeout(function() {
             updateTempList();
-        }, 1000);
+        }, 1000);*/
     })();
 });
