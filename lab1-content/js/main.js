@@ -24,14 +24,18 @@ function generateChart() {
 	return chart = c3.generate({
 		    bindto: '#temperature_chart',
 		    data: { columns: [ ], type: 'spline' },
-		    tooltip: { show: false },
+		    tooltip: { show: true },
 			axis: {
-		      y: { label: { text: 'Temperature (°C)', position: 'outer-middle' } },
+		      y: { 
+		      	label: { text: 'Temperature (°C)', position: 'outer-middle' },
+		      	min: 10, max: 50
+		      },
 		      x: {
 		        label: { text: 'Time Ago (Seconds)', position: 'outer-middle' }, 
-		        tick: { values: ['0', '50', '100', '150', '200', '250', '300'] }
+		        tick: { values: [300, 250, 200, 150, 100, 50, 0] },
+		        min: 0, max: 300
 		      }
-		    }, 
+		    }
 		});
 }
 
@@ -67,12 +71,10 @@ jQuery(document).ready(function($) {
 	// this reschedules itself every one second.
 	(function updateTempList() {
 		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
-			// the name of the graph is the 0th index of the data array.
-        	var tempList = ['Temperature Reading'];
-
         	// the temperatures get loaded into the array in reverse
-			//for (var i = json.temps.length - 1; i >= 0; i--) {
-			for (var i = 0; i < json.temps.length; i++) {
+        	var tempList = ['Temperatures'];
+
+			for (var i = json.temps.length - 1; i >= 0; i--) {
 				var temp = json.temps[i];
 				tempList.push(parseInt(temp));
 			}
