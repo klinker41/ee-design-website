@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="../main.css">
+        <link rel="stylesheet" type="text/css" href="c3.min.css">
         <g:layoutHead/>
         <style>
             #view-source {
@@ -20,7 +21,7 @@
               z-index: 900;
             }
 
-            .current_temperature {
+            #current_temperature {
               font-size: 4em;
               text-align: center;
               width: 100%;
@@ -51,7 +52,15 @@
                   <div class="mdl-card mdl-cell mdl-cell--12-col">
                     <div class="mdl-card__supporting-text">
                       <h4>Current Temperature</h4>
-                      <div class="current_temperature">Loading...</div>
+                      <div id="current_temperature">Loading...</div>
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Temperature Graph</h4>
+                      <div id="temperature_chart"></div>
                     </div>
                   </div>
                 </section>
@@ -60,6 +69,8 @@
         </div>
         <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="js/d3.v3.min.js" charset="utf-8"></script>
+        <script src="js/c3.min.js"></script>
         <script src="js/init.js"></script>
         <script src="js/main.js"></script>
     </body>

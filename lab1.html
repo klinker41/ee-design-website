@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Electrical Engineering Design</title>
+        <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <g:layoutHead/>
+        <style>
+            #view-source {
+              position: fixed;
+              display: block;
+              right: 0;
+              bottom: 0;
+              margin-right: 40px;
+              margin-bottom: 40px;
+              z-index: 900;
+            }
+        </style>
+    </head>
+    <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-layout__header--waterfall">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Lab 1</span>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">EE Design</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="index.html">Home</a>
+                    <a class="mdl-navigation__link" href="senior_design.html">Senior Design Proposal</a>
+                    <a class="mdl-navigation__link" href="lab1.html">Lab 1</a>
+                    <a class="mdl-navigation__link" href="lab2.html">Lab 2</a>
+                    <a class="mdl-navigation__link" href="lab3.html">Lab 3</a>
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
+                <br/>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Lab 1</h4>
+                      First lab is focused on making a digital thermometer.<br/>
+                      To access the webpage for this lab, use the following link.<br/><br/>
+
+                      <a href="lab1-content/lab1-web.html">www.eedesign.klinker.xyz/lab1-content/lab1-web.html</a>
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Backend Setup (Sept. 9th)</h4>
+                      We set up a backend that uses REST-like endpoints to access our thermometer data. This way, the data itself is the service we are creating and we just have to create simple ways to access that data. The endpoints are as follows:<br/><br/>
+
+                      Add a value: <a href="http://173.17.168.19:8083/lab1/temperature/add?temp=13.65">http://173.17.168.19:8083/lab1/temperature/add?temp=13.65</a><br/>
+                      Read previous second: <a href="http://173.17.168.19:8083/lab1/temperature/latest">http://173.17.168.19:8083/lab1/temperature/latest</a><br/>
+                      Read last 300 seconds: <a href="http://173.17.168.19:8083/lab1/temperature">http://173.17.168.19:8083/lab1/temperature</a><br/><br/>
+
+                      All responses are returned through JSON objects. The code for the backend can be found <a href="https://github.com/klinker41/ee-design-lab1/tree/master/backend">here</a>
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Client Setup (Sept. 9th)</h4>
+                      Since we have no way to push real data to the server yet, we set up a simple command line application to hit the endpoint and add values every second.<br/><br/>
+
+                      The code for this client can be found <a href="https://github.com/klinker41/ee-design-lab1/tree/master/client">here</a>
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Web Client Setup (Sept. 9th)</h4>
+                      After creating the client to fill the data, we wanted to be able to view those temperatures. We set up a basic webpage to just display the current temperature and get new values for it every one second.<br/><br/>
+
+                      Our web client is simple HTML, CSS, and Javascript. We used Google's Material Design Lite for responsive design, similar to this class website. The page gets rendered, then, then Javascript fills the current temperature field.<br/><br/> 
+
+                      Note that this page will display 'Data Unavailable' if the backend says there is no temperature reading. So, unless the client is running and filling the values, or our temperature sensor is actually turned on, this web client will not do anything.<br/><br/>
+
+                      To view the web client, you can head here: <a href="lab1-content/lab1-web.html">Web Client</a><br/>
+                      The code for this client can be found <a href="https://github.com/klinker41/ee-design-website/tree/master/lab1-content">here</a>
+                    </div>
+                  </div>
+                </section>
+                <br/>
+            </main>
+        </div>
+        <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+    </body>
+</html>
