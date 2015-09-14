@@ -91,6 +91,13 @@ jQuery(document).ready(function($) {
         }, 1000);
     })();
 
+    // turn on the hardware display when we start up the website
+    (function setConfig() {
+		$.post("http://173.17.168.19:8083/lab1/config/update?pressed=0", 
+    		function(response) { });
+    })();
+
+    // execute when the checkbox is changed
     $('#celcius_checkbox').change(function() {
     	if (this.checked) {
     		temp_type = 'C';
@@ -98,4 +105,15 @@ jQuery(document).ready(function($) {
     		temp_type = 'F';
     	}
     });
+
+    // toggle the button state on the physical device
+    $('#toggle_switch').change(function() {
+    	var pressed = '0';
+    	if (this.checked) { pressed = '1'; }
+    	$.post("http://173.17.168.19:8083/lab1/config/update?pressed=" + pressed, 
+    		function(response) { });
+    });
+
+    // todo: get value from input
+    // var min_temp = $('#min_temp').val();
 });
