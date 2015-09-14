@@ -56,6 +56,9 @@ jQuery(document).ready(function($) {
         	} else if (current_temperature > 400) {
         		$('#current_temperature').updateWithText("Sensor Unplugged.",300);
         	} else {
+        		var min_temp = $('#min_temp').val();
+        		var max_temp = $('#max_temp').val();
+        		if (current_temperature > )
         		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
 		}).fail(function() {
@@ -113,7 +116,4 @@ jQuery(document).ready(function($) {
     	$.post("http://173.17.168.19:8083/lab1/config/update?pressed=" + pressed, 
     		function(response) { });
     });
-
-    // todo: get value from input
-    // var min_temp = $('#min_temp').val();
 });
