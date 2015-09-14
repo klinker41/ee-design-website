@@ -49,11 +49,13 @@ jQuery(document).ready(function($) {
     (function updateTemp() {
 		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest?type=" + temp_type, {}, function(json, status) {
 			// set the data according to the json returned
-        	current_temperature = roundVal(json.temp);
+        	current_temperature = json.temp;
 
-    		if (current_temperature == null) {
+    		if (json.temp == null) {
         		$('#current_temperature').updateWithText("Data Unavailable.",300);
-    		} else {
+        	} else if (current_temperature > 400) {
+        		$('#current_temperature').updateWithText("Sensor Unplugged.",300);
+        	} else {
         		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
 		}).fail(function() {
