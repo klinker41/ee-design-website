@@ -58,7 +58,9 @@ jQuery(document).ready(function($) {
         	} else {
         		var min_temp = $('#min_temp').val();
         		var max_temp = $('#max_temp').val();
-        		if (current_temperature > )
+        		if (current_temperature > Number(max_temp) || current_temperature < Number(min_temp)) {
+        			// todo send sms of bad temperature, outside range
+        		}
         		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
 		}).fail(function() {
