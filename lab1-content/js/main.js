@@ -12,6 +12,51 @@ jQuery.fn.updateWithText = function(text, speed) {
 	}
 }
 
+function sendTemperatureBoundsError($, temp) {
+	/*
+		Sends a push notification to luke's phone, which will send a text from there.
+		messages are send as a url encoded json parameter.
+		ex (with the 3 supported fields):
+		{
+			"message_type":"send_sms", 					// never changes
+			"text_to_send":"test", 						// message can be anything
+			"number_to_send_to":"5159911493"			// only digits, no other characters
+		}
+
+		For URL encoding:
+		{ = %7B
+		} = %7D
+		space = %20
+		" = %22
+		comma = %2C
+		colon = %3A
+	*/
+
+	var replacements = [
+		["{", "%7B"],
+		["}", "%7D"],
+		[" ", "%20"],
+		["\"", "%22"],
+		[",", "%2C"],
+		[":", "%3A"]
+	]
+
+	var message = "Temperature out of bounds: " + temp + ' °' + temp_type;
+	var to = $('#phone_number').val();
+	var json = '{ "message_type":"send_sms", "text_to_send":"' + message + '", "number_to_send_to":"' + to + '" }';
+
+	for (var i = 0; i < replacements.length; i++) {
+		json = replaceAll(replacements[i][0], replacements[i][1], json);
+	}
+
+	$.post("https://omega-jet-799.appspot.com/_ah/api/messaging/v1/sendSms/" + json, 
+    		function(response) { });
+}
+
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function roundVal(temp) {
 	return Number(temp).toFixed(2);
 }
@@ -59,7 +104,7 @@ jQuery(document).ready(function($) {
         		var min_temp = $('#min_temp').val();
         		var max_temp = $('#max_temp').val();
         		if (current_temperature > Number(max_temp) || current_temperature < Number(min_temp)) {
-        			// todo send sms of bad temperature, outside range
+        			sendTemperatureBoundsError($, current_temperature);
         		}
         		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
@@ -117,5 +162,9 @@ jQuery(document).ready(function($) {
     	if (this.checked) { pressed = '1'; }
     	$.post("http://173.17.168.19:8083/lab1/config/update?pressed=" + pressed, 
     		function(response) { });
+    });
+
+    $('#send_test').click(function() {
+    	sendTemperatureBoundsError($, "33");
     });
 });
