@@ -92,7 +92,7 @@ jQuery(document).ready(function($) {
 	// function to update the current temperature.
 	// this reschedules itself every one second.
     (function updateTemp() {
-		$.getJSON("http://173.17.168.19:8083/lab1/temperature/latest?type=" + temp_type, {}, function(json, status) {
+		$.getJSON("http://default-environment-serpnbmp6z.elasticbeanstalk.com/temperature/latest?type=" + temp_type, {}, function(json, status) {
 			// set the data according to the json returned
         	current_temperature = json.temp;
 
@@ -122,7 +122,7 @@ jQuery(document).ready(function($) {
 	// function to update the past temperature graph
 	// this reschedules itself every one second.
 	(function updateTempList() {
-		$.getJSON("http://173.17.168.19:8083/lab1/temperature", {}, function(json, status) {
+		$.getJSON("http://default-environment-serpnbmp6z.elasticbeanstalk.com/temperature", {}, function(json, status) {
         	// the temperatures get loaded into the array in reverse
         	var tempList = ['Temperatures'];
 
@@ -143,7 +143,7 @@ jQuery(document).ready(function($) {
 
     // turn on the hardware display when we start up the website
     (function setConfig() {
-		$.post("http://173.17.168.19:8083/lab1/config/update?pressed=0", 
+		$.post("http://default-environment-serpnbmp6z.elasticbeanstalk.com/config/update?pressed=0", 
     		function(response) { });
     })();
 
@@ -160,7 +160,7 @@ jQuery(document).ready(function($) {
     $('#toggle_switch').change(function() {
     	var pressed = '0';
     	if (this.checked) { pressed = '1'; }
-    	$.post("http://173.17.168.19:8083/lab1/config/update?pressed=" + pressed, 
+    	$.post("http://default-environment-serpnbmp6z.elasticbeanstalk.com/config/update?pressed=" + pressed, 
     		function(response) { });
     });
 
