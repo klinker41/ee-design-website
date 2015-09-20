@@ -12,6 +12,8 @@ jQuery.fn.updateWithText = function(text, speed) {
 	}
 }
 
+// lets only send texts every one minute if the temperature is still high/low
+var sentMessageRecently = false;
 function sendTemperatureBoundsError($, temp) {
 	/*
 		Sends a push notification to luke's phone, which will send a text from there.
@@ -32,6 +34,10 @@ function sendTemperatureBoundsError($, temp) {
 		colon = %3A
 	*/
 
+	if (sentMessageRecently == true) {
+		return;
+	}
+
 	var replacements = [
 		["{", "%7B"],
 		["}", "%7D"],
@@ -51,6 +57,12 @@ function sendTemperatureBoundsError($, temp) {
 
 	$.post("https://omega-jet-799.appspot.com/_ah/api/messaging/v1/sendSms/" + json, 
     		function(response) { });
+
+	sentMessageRecently = true;
+
+	setTimeout(function() {
+        sentMessageRecently = false;
+    }, 1000 * 60); // one minute
 }
 
 function replaceAll(find, replace, str) {
