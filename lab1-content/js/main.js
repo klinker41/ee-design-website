@@ -103,9 +103,10 @@ jQuery(document).ready(function($) {
         	} else {
         		var min_temp = $('#min_temp').val();
         		var max_temp = $('#max_temp').val();
-        		if (current_temperature > Number(max_temp) || current_temperature < Number(min_temp)) {
+        		if (min_temp && max_temp && $('#phone_number').val() && (current_temperature > Number(max_temp) || current_temperature < Number(min_temp))) {
         			sendTemperatureBoundsError($, current_temperature);
         		}
+
         		$('#current_temperature').updateWithText(current_temperature + ' °' + temp_type,300);
     		}
 		}).fail(function() {
@@ -162,10 +163,6 @@ jQuery(document).ready(function($) {
     	if (this.checked) { pressed = '1'; }
     	$.post("http://default-environment-serpnbmp6z.elasticbeanstalk.com/config/update?pressed=" + pressed, 
     		function(response) { });
-    });
-
-    $('#send_test').click(function() {
-    	sendTemperatureBoundsError($, "33");
     });
 
     $('#temperature_chart').resizable();
