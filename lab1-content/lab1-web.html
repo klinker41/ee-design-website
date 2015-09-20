@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Digital Thermometer</title>
         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-pink.min.css">
+        <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="../main.css">
         <link rel="stylesheet" type="text/css" href="c3.css">
@@ -51,6 +52,11 @@
 
             #toggle_label {
               margin-top: 40%;
+            }
+
+            #temperature_chart {
+              min-height: 400px;
+              max-width: 740px;
             }
         </style>
     </head>
@@ -138,7 +144,8 @@
             </main>
         </div>
         <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
-        <script src="js/jquery.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script src="js/d3.v3.js" charset="utf-8"></script>
         <script src="js/c3.js"></script>
         <script src="js/init.js"></script>

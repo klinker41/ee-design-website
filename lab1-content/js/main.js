@@ -167,4 +167,6 @@ jQuery(document).ready(function($) {
     $('#send_test').click(function() {
     	sendTemperatureBoundsError($, "33");
     });
+
+    $('#temperature_chart').resizable();
 });
