@@ -50,6 +50,51 @@
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                   <div class="mdl-card mdl-cell mdl-cell--12-col">
                     <div class="mdl-card__supporting-text">
+                      <h4>Data Output and CRC Check (Oct. 22th, Lab 2)</h4>
+                      Even though we are getting garbage bits in between our start and stop flags, we still need to continue moving through the lab incase we can't fix those, so that we still get as many parts done as possible. So, we now read the bits into a buffer (even if the data isn't correct) and then convert that buffer to ASCII codes and output these codes over the serial interface. We also perform the CRC check on what we generate for these received bits and compare it to the received CRC code.<br/><br/>
+                      Since we get garbage in between our start and stop sequences, we never actually expect the CRC check to be OK, but we do it anyways so as to be as complete as possible. The same goes for bit stuffing, we process stuffed bits correctly and kick out the extra ones, but it still doesn't help us get the correct data.
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Reading Start and End Flags (Oct. 21th, Lab 2)</h4>
+                      After we read the tone wave, we need to process the bits from it and determine where the start and end flags are at. We accomplished this through the zero-crossing algorithm outlined on ICON and can now read these bits correctly.<br/><br/>
+                      
+                      When reading what is in between them however, we start to run into problems. We are just getting garbage bits in between that do not convert to ASCII codes at all and are currently unsure why this is.
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Generating a Tone Wave (Oct. 20th, Lab 2)</h4>
+                      The next step was to generate a tone wave from the level shifted and inverted data and this is now complete. We accomplished this on the Arduino using simple pin interrupts that fired whenever the level shifted wave went from positive to negative or negative to positive and then compared the amount of time that this took to 1700Hz.
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>Level Shifting and Inverting (Oct. 19th, Lab 2)</h4>
+                      We need to get the data in the correct format so that we are able to process it. First, we send data through an AUX cable and this gives us a sine wave with frequencies of 1200Hz and 2200Hz intermittedly. From there, we need to level shift and invert the wave and then turn that square wave into a tone wave that we can read data from. We were able to level shift and invert with a simple comparitor hardware piece and can now move onto the software portion of the project.
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
+                      <h4>CRC Check Algorithm Implementation (Oct. 14th, Lab 2)</h4>
+                      Lab 2 work has started now and the first step that we have taken is creating a simple C++ program that can calculate the CRC for integers that we give it. This will be easily translatable into Arduino code that can be executed to generate a CRC from received data and check it against the received CRC to ensure that we are receiving the correct values.<br/><br/>
+
+                      This will be implemented into the lab after we reach the stage where we need it.
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
                       <h4>Test Plan (Oct. 6th, Lab 2)</h4>
                       Lab 2 test plan has been updated for an initial draft, we will be using this in the future to iterate over our designs and test them to confirm they are working correctly. The test plan can be found <a href="test_plan_2.pdf">here</a>.
                     </div>
