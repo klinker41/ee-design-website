@@ -50,6 +50,15 @@
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                   <div class="mdl-card mdl-cell mdl-cell--12-col">
                     <div class="mdl-card__supporting-text">
+                      <h4>Test Plan and Direction (Nov. 15th, Lab 3)</h4>
+                      For lab 3, we are going to make an Android to enable secure communication. The benefits for this is that we can use a few different OOB communication methods to exchange public keys between users (SMS and email) and we will get practice for next semester where we will be making an app for Source Allies.<br/><br/>
+                      We have already created the messaging backend and interface for the application, the next step will be to write the actual encryption and then we'll be set!
+                    </div>
+                  </div>
+                </section>
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                  <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__supporting-text">
                       <h4>Data Output and CRC Check (Oct. 22th, Lab 2)</h4>
                       Even though we are getting garbage bits in between our start and stop flags, we still need to continue moving through the lab incase we can't fix those, so that we still get as many parts done as possible. So, we now read the bits into a buffer (even if the data isn't correct) and then convert that buffer to ASCII codes and output these codes over the serial interface. We also perform the CRC check on what we generate for these received bits and compare it to the received CRC code.<br/><br/>
                       Since we get garbage in between our start and stop sequences, we never actually expect the CRC check to be OK, but we do it anyways so as to be as complete as possible. The same goes for bit stuffing, we process stuffed bits correctly and kick out the extra ones, but it still doesn't help us get the correct data.
